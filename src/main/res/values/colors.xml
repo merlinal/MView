@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary">#159C77</color>
+    <color name="primary_80">#80159C77</color>
+    <color name="primary_a0">#a0159C77</color>
+    <color name="primaryDark">#008B45</color>
+    <color name="accent">#159C77</color>
+    <color name="navigationBar">#159C77</color>
+    <color name="statusBar">#159C77</color>
+    <color name="background">#f2f2f2</color>
+
+    <color name="text">#333333</color>
+    <color name="text_desc">#666666</color>
+    <color name="label">#666666</color>
+    <color name="hint">#999999</color>
+    <color name="lightDisable">#a3adb3</color>
+    <color name="divider">#f2f2f2</color>
+    <color name="link">#1C86EE</color>
+    <color name="trans">#00000000</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="light">#ffffff</color>
+    <color name="dark">#000000</color>
+    <color name="notice">#ff4444</color>
+    <color name="pressed">#f2f2f2</color>
+
+</resources>
