@@ -100,21 +100,15 @@ android {
         }
     }
 
-//    jacoco {
-//        version "0.7.5.201505241946"
-//    }
 }
 
 dependencies {
-    //    provided 'com.android.support:recyclerview-v7:27.0.2'
+    provided 'com.android.support:recyclerview-v7:27.0.2'
+    provided 'com.github.merlinal:mcore:-SNAPSHOT'
 
-    compile 'com.android.support:recyclerview-v7:27.0.2'
-
-    compile 'com.android.support:appcompat-v7:27.0.2'
-    compile 'com.android.support:design:27.0.2'
-
-    compile 'com.github.merlinal:mcore:-SNAPSHOT'
-    compile 'com.github.merlinal:mrecyclerview:-SNAPSHOT'
+    implementation 'com.android.support:appcompat-v7:27.0.2'
+    implementation 'com.android.support:design:27.0.2'
+    implementation 'com.github.merlinal:mrecyclerview:-SNAPSHOT'
 }
 
 // build a jar with source files

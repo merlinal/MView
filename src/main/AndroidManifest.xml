@@ -1,17 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.merlin.view">
 
-    <application
-        android:name="com.merlin.core.context.BaseApp"
-        android:allowBackup="true"
-        android:enabled="true"
-        android:theme="@style/BaseTheme">
-        <activity android:name=".TestA">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-    </application>
+    <application />
 
 </manifest>
