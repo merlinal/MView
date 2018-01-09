@@ -1,6 +1,12 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-//apply plugin: 'com.android.library'
-apply plugin: 'com.android.application'
+//if (IS_RUN_ALONE.toBoolean()) {
+//    apply plugin: 'com.android.application'
+//} else {
+//    apply plugin: 'com.android.library'
+//}
+
+apply plugin: 'com.android.library'
+
 group = 'com.github.merlinal'
 
 buildscript {
@@ -35,23 +41,68 @@ allprojects {
 android {
     compileSdkVersion 27
     buildToolsVersion '27.0.2'
+
     defaultConfig {
         minSdkVersion 15
         targetSdkVersion 27
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        versionCode 1
+        versionName "1.0.0"
     }
+
+//    signingConfigs {
+//        debug {
+//        }
+//
+//        release {
+//        }
+//    }
+
     buildTypes {
+//        debug {
+//            buildConfigField "boolean", "IS_RUN_ALONE", "true"
+//
+//            minifyEnabled false
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            versionNameSuffix "_debug"
+//            signingConfig signingConfigs.debug
+//        }
+
         release {
+//            buildConfigField "boolean", "IS_RUN_ALONE", "false"
+
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            versionNameSuffix "_release"
+//            signingConfig signingConfigs.release
         }
     }
+
     //dataBinding
     dataBinding {
         enabled = true
     }
-    productFlavors {
+
+    packagingOptions {
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/DEPENDENCIES'
     }
+
+    lintOptions {
+        abortOnError false
+    }
+
+    testOptions {
+        unitTests {
+            returnDefaultValues = true
+        }
+    }
+
+//    jacoco {
+//        version "0.7.5.201505241946"
+//    }
 }
 
 dependencies {
@@ -67,25 +118,26 @@ dependencies {
 }
 
 // build a jar with source files
-task sourcesJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
-    classifier = 'sources'
-}
+//task sourcesJar(type: Jar) {
+//    from android.sourceSets.main.java.srcDirs
+//    classifier = 'sources'
+//}
+//
+//task javadoc(type: Javadoc) {
+//    failOnError false
+//    source = android.sourceSets.main.java.sourceFiles
+//    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+//    classpath += configurations.compile
+//}
+//
+//// build a jar with javadoc
+//task javadocJar(type: Jar, dependsOn: javadoc) {
+//    classifier = 'javadoc'
+//    from javadoc.destinationDir
+//}
+//
+//artifacts {
+//    archives sourcesJar
+//    archives javadocJar
+//}
 
-task javadoc(type: Javadoc) {
-    failOnError false
-    source = android.sourceSets.main.java.sourceFiles
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-    classpath += configurations.compile
-}
-
-// build a jar with javadoc
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-}
-
-artifacts {
-    archives sourcesJar
-    archives javadocJar
-}
