@@ -21,9 +21,9 @@ gen/
 #.idea/workspace.xml - remove # and delete .idea if it better suit your needs.
 .gradle
 build/
-gradle/
-gradlew
-gradlew.bat
+#gradle/
+#gradlew
+#gradlew.bat
 
 */out
 */build
