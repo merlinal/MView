@@ -1,27 +1,4 @@
 <resources>
-    <!--&lt;!&ndash;app样式&ndash;&gt;-->
-    <style name="BaseTheme" parent="Theme.AppCompat.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="android:windowNoTitle">true</item>
-        <!-- below api 22-->
-        <item name="windowNoTitle">true</item>
-        <item name="android:windowIsTranslucent">true</item>
-        <!-- 以下需自定义设置 -->
-        <item name="android:textColorPrimary">@color/light</item>
-        <item name="android:textSize">@dimen/font_normal</item>
-        <item name="android:windowBackground">@color/background</item>
-        <item name="colorAccent">@color/accent</item>
-        <item name="colorPrimary">@color/primary</item>
-        <item name="colorPrimaryDark">@color/primaryDark</item>
-        <item name="android:statusBarColor">@color/statusBar</item>
-        <item name="android:navigationBarColor">@color/navigationBar</item>
-    </style>
-
-    <!--app样式全屏-->
-    <style name="FullTheme" parent="BaseTheme">
-        <item name="android:windowFullscreen">true</item>
-        <item name="android:statusBarColor">@color/trans</item>
-    </style>
 
     <!--dialog样式-->
     <style name="dialog" parent="android:style/Theme.Dialog">
@@ -46,32 +23,32 @@
 
     <!--底部弹出-->
     <style name="anim_bottom" parent="android:Animation">
-        <item name="@android:windowEnterAnimation">@anim/in_from_bottom</item>
-        <item name="@android:windowExitAnimation">@anim/out_to_bottom</item>
+        <item name="android:windowEnterAnimation">@anim/in_from_bottom</item>
+        <item name="android:windowExitAnimation">@anim/out_to_bottom</item>
     </style>
 
     <!--淡入淡出-中-->
     <style name="anim_center" parent="android:Animation">
-        <item name="@android:windowEnterAnimation">@anim/in_from_middle</item>
-        <item name="@android:windowExitAnimation">@anim/out_to_middle</item>
+        <item name="android:windowEnterAnimation">@anim/in_from_middle</item>
+        <item name="android:windowExitAnimation">@anim/out_to_middle</item>
     </style>
 
     <!--淡入淡出-中上-->
     <style name="anim_top_middle" parent="android:Animation">
-        <item name="@android:windowEnterAnimation">@anim/in_from_top_middle</item>
-        <item name="@android:windowExitAnimation">@anim/out_to_top_middle</item>
+        <item name="android:windowEnterAnimation">@anim/in_from_top_middle</item>
+        <item name="android:windowExitAnimation">@anim/out_to_top_middle</item>
     </style>
 
     <!--淡入淡出-左上-->
     <style name="anim_top_left" parent="android:Animation">
-        <item name="@android:windowEnterAnimation">@anim/in_from_top_left</item>
-        <item name="@android:windowExitAnimation">@anim/out_to_top_left</item>
+        <item name="android:windowEnterAnimation">@anim/in_from_top_left</item>
+        <item name="android:windowExitAnimation">@anim/out_to_top_left</item>
     </style>
 
     <!--淡入淡出-右上-->
     <style name="anim_top_right" parent="android:Animation">
-        <item name="@android:windowEnterAnimation">@anim/in_from_top_right</item>
-        <item name="@android:windowExitAnimation">@anim/out_to_top_right</item>
+        <item name="android:windowEnterAnimation">@anim/in_from_top_right</item>
+        <item name="android:windowExitAnimation">@anim/out_to_top_right</item>
     </style>
 
 </resources>

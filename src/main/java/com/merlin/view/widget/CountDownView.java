@@ -3,9 +3,9 @@ package com.merlin.view.widget;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
 
@@ -16,7 +16,7 @@ import java.lang.ref.WeakReference;
  * @date 2017/11/23.
  */
 
-public class CountDownView extends TextView {
+public class CountDownView extends AppCompatTextView {
 
     public CountDownView(Context context) {
         this(context, null);
