@@ -66,20 +66,20 @@ public class DialogRadio {
         return this;
     }
 
-    private void setTextView(TextView textView, int textColor, float textSize) {
+    private DialogRadio setTextView(TextView textView, int textColor, float textSize) {
         if (textColor != 0) {
             textView.setTextColor(textColor);
         }
         if (textSize != 0) {
             textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
         }
+        return this;
     }
 
-
-    public void show(FragmentManager fragmentManager, String btn,
-                     final IDialog.OnCancelListener onCancelListener,
-                     final IDialog.OnRadioListener onRadioListener,
-                     String... datas) {
+    public DialogRadio show(FragmentManager fragmentManager, String btn,
+                            final IDialog.OnCancelListener onCancelListener,
+                            final IDialog.OnRadioListener onRadioListener,
+                            String... datas) {
         mDialog.setCancelListener(onCancelListener);
         if (!mDialog.isShowing()) {
             mDialog.show(fragmentManager, "DialogRadio");
@@ -103,5 +103,6 @@ public class DialogRadio {
                 }
             }
         });
+        return this;
     }
 }

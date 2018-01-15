@@ -3,7 +3,7 @@ package com.merlin.view.dialog;
 import java.util.Set;
 
 /**
- * Created by Administrator on 2018/1/4.
+ * @author merlin
  */
 
 public interface IDialog {
@@ -22,6 +22,10 @@ public interface IDialog {
 
     interface OnCheckListener {
         void onSelect(Set<Integer> indexSet);
+    }
+
+    interface OnSelectListener {
+        void onSelect(String text, int... indexes);
     }
 
 }

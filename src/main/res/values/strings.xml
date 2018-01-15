@@ -4,4 +4,13 @@
     <string name="btn_cancel">取消</string>
     <string name="btn_confirm">确定</string>
 
+    <string name="date_year">年</string>
+    <string name="date_month">月</string>
+    <string name="date_day">日</string>
+    <string name="date_hour">时</string>
+    <string name="date_minute">分</string>
+    <string name="date_second">秒</string>
+
+    <string name="m_title_select">请选择</string>
+
 </resources>

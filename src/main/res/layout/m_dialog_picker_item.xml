@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <com.merlin.view.widget.PickerView
+        android:id="@+id/m_dialog_picker"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
+
+    <TextView
+        android:id="@+id/m_dialog_label"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:paddingLeft="@dimen/edge_small"
+        android:paddingRight="@dimen/edge_small"
+        android:textColor="@color/text"
+        android:textSize="@dimen/font_normal" />
+
+</LinearLayout>

@@ -92,19 +92,20 @@ public class DialogCheck {
         return this;
     }
 
-    private void setTextView(TextView textView, int textColor, float textSize) {
+    private DialogCheck setTextView(TextView textView, int textColor, float textSize) {
         if (textColor != 0) {
             textView.setTextColor(textColor);
         }
         if (textSize != 0) {
             textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
         }
+        return this;
     }
 
-    public void show(FragmentManager fragmentManager, String left, String right,
-                     final IDialog.OnCancelListener onCancelListener,
-                     final IDialog.OnCheckListener onCheckListener,
-                     String... datas) {
+    public DialogCheck show(FragmentManager fragmentManager, String left, String right,
+                            final IDialog.OnCancelListener onCancelListener,
+                            final IDialog.OnCheckListener onCheckListener,
+                            String... datas) {
         mDialog.setCancelListener(onCancelListener);
         if (!mDialog.isShowing()) {
             mDialog.show(fragmentManager, "DialogRadio");
@@ -139,5 +140,6 @@ public class DialogCheck {
                 }
             }
         });
+        return this;
     }
 }

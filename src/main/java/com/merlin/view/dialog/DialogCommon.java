@@ -1,19 +1,13 @@
 package com.merlin.view.dialog;
 
-import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,6 +31,10 @@ public class DialogCommon extends DialogFragment {
         super.onCreate(savedInstanceState);
         //代码设置 无标题
         setStyle(DialogFragment.STYLE_NO_TITLE, mBuilder.style);
+        //解决复用时的异常 DialogFragment can not be attached to a container view
+        if (mBuilder != null && mBuilder.view != null && mBuilder.view.getParent() != null) {
+            ((ViewGroup) mBuilder.view.getParent()).removeAllViews();
+        }
     }
 
     @Nullable
@@ -59,7 +57,6 @@ public class DialogCommon extends DialogFragment {
         if (mBuilder.anim != 0) {
             window.setWindowAnimations(mBuilder.anim);
         }
-
         return mBuilder.view;
     }
 
@@ -129,23 +126,6 @@ public class DialogCommon extends DialogFragment {
         public DialogCommon build() {
             DialogCommon dialog = new DialogCommon();
             dialog.mBuilder = this;
-            /*Bundle bundle = new Bundle();
-            bundle.putInt("layoutId", layoutResId);
-            bundle.putInt("style", style != 0 ? style : R.style.dialog);
-            bundle.putInt("width", width > 0 ? width : WindowManager.LayoutParams.WRAP_CONTENT);
-            bundle.putInt("height", height > 0 ? height : WindowManager.LayoutParams.WRAP_CONTENT);
-            bundle.putInt("x", x);
-            bundle.putInt("y", y);
-            if (anim != 0) {
-                bundle.putInt("anim", anim);
-            }
-            if (gravity != 0) {
-                bundle.putInt("gravity", gravity);
-            }
-            bundle.putFloat("dim", dim ? 0.5f : 0f);
-            bundle.putBoolean("cancelable", cancelable);
-            bundle.putBoolean("fullScreen", fullScreen);
-            dialog.setArguments(bundle);*/
             return dialog;
         }
 
