@@ -12,6 +12,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.merlin.core.tool.IHandler;
 import com.merlin.core.tool.SafeHandle;
 import com.merlin.core.util.MLog;
 import com.merlin.view.R;
@@ -22,7 +23,7 @@ import java.util.List;
 /**
  * @author zal
  */
-public class PickerView extends View {
+public class PickerView extends View implements IHandler{
 
     private Context context;
     /**
@@ -58,42 +59,42 @@ public class PickerView extends View {
     private boolean canScroll = true;
     private onSelectListener mSelectListener;
 
-    private SafeHandle mHandler = new SafeHandle<PickerView>(this) {
-        @Override
-        protected void onHandleMessage(Message message) {
-            if (Math.abs(mMoveLen) < SPEED) {
-                mMoveLen = 0;
-                performSelect();
-                mHandler.removeMessages(0);
-            } else {
-                if (Math.abs(mMoveLen) >= mMaxTextSize && mCurrentSelected > 0 && mCurrentSelected < mDataList.size() - 1) {
-                    int moveCount = (int) (mMoveLen / mMaxTextSize);
-                    if (moveCount < 0) {
-                        if (mCurrentSelected - moveCount >= mDataList.size() - 1) {
-                            mCurrentSelected = mDataList.size() - 1;
-                            mMoveLen = mMoveLen + (mDataList.size() - 1 - mCurrentSelected) * mMaxTextSize;
-                        } else {
-                            mCurrentSelected = mCurrentSelected - moveCount;
-                            mMoveLen = mMoveLen % mMaxTextSize;
-                        }
+    private SafeHandle mHandler = new SafeHandle<>(this, this);
+
+    @Override
+    public void onHandleMessage(Message message) {
+        if (Math.abs(mMoveLen) < SPEED) {
+            mMoveLen = 0;
+            performSelect();
+            mHandler.removeMessages(0);
+        } else {
+            if (Math.abs(mMoveLen) >= mMaxTextSize && mCurrentSelected > 0 && mCurrentSelected < mDataList.size() - 1) {
+                int moveCount = (int) (mMoveLen / mMaxTextSize);
+                if (moveCount < 0) {
+                    if (mCurrentSelected - moveCount >= mDataList.size() - 1) {
+                        mCurrentSelected = mDataList.size() - 1;
+                        mMoveLen = mMoveLen + (mDataList.size() - 1 - mCurrentSelected) * mMaxTextSize;
                     } else {
-                        if (mCurrentSelected - moveCount <= 0) {
-                            mCurrentSelected = 0;
-                            mMoveLen = mMoveLen - mCurrentSelected * mMaxTextSize;
-                        } else {
-                            mCurrentSelected = mCurrentSelected - moveCount;
-                            mMoveLen = mMoveLen % mMaxTextSize;
-                        }
+                        mCurrentSelected = mCurrentSelected - moveCount;
+                        mMoveLen = mMoveLen % mMaxTextSize;
                     }
                 } else {
-                    // 这里mMoveLen / Math.abs(mMoveLen)是为了保有mMoveLen的正负号，以实现上滚或下滚
-                    mMoveLen = mMoveLen - mMoveLen / Math.abs(mMoveLen) * SPEED;
+                    if (mCurrentSelected - moveCount <= 0) {
+                        mCurrentSelected = 0;
+                        mMoveLen = mMoveLen - mCurrentSelected * mMaxTextSize;
+                    } else {
+                        mCurrentSelected = mCurrentSelected - moveCount;
+                        mMoveLen = mMoveLen % mMaxTextSize;
+                    }
                 }
-                mHandler.sendEmptyMessageDelayed(0, 10);
+            } else {
+                // 这里mMoveLen / Math.abs(mMoveLen)是为了保有mMoveLen的正负号，以实现上滚或下滚
+                mMoveLen = mMoveLen - mMoveLen / Math.abs(mMoveLen) * SPEED;
             }
-            invalidate();
+            mHandler.sendEmptyMessageDelayed(0, 10);
         }
-    };
+        invalidate();
+    }
 
     public PickerView(Context context, AttributeSet attrs) {
         super(context, attrs);

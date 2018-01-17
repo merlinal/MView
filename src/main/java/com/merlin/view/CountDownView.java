@@ -7,6 +7,9 @@ import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.merlin.core.tool.IHandler;
+import com.merlin.core.tool.SafeHandle;
+
 import java.lang.ref.WeakReference;
 
 /**
@@ -16,7 +19,7 @@ import java.lang.ref.WeakReference;
  * @date 2017/11/23.
  */
 
-public class CountDownView extends AppCompatTextView {
+public class CountDownView extends AppCompatTextView implements IHandler {
 
     public CountDownView(Context context) {
         this(context, null);
@@ -58,7 +61,7 @@ public class CountDownView extends AppCompatTextView {
     /**
      * 计数控制器
      */
-    private Handler mHandler = new MyHandler(this);
+    private Handler mHandler = new SafeHandle<>(this, this);
     /**
      * 状态：0=初始，1=计数中,2=计数结束
      */
@@ -155,18 +158,10 @@ public class CountDownView extends AppCompatTextView {
         }
     }
 
-    private static class MyHandler extends Handler {
-        private final WeakReference<CountDownView> mCountDownView;
-
-        public MyHandler(CountDownView countDownView) {
-            mCountDownView = new WeakReference<>(countDownView);
-        }
-
-        @Override
-        public void handleMessage(Message msg) {
-            if (mCountDownView.get() != null && msg.what == 1) {
-                mCountDownView.get().countDown();
-            }
+    @Override
+    public void onHandleMessage(Message msg) {
+        if (msg.what == 1) {
+            countDown();
         }
     }
 
