@@ -1,4 +1,4 @@
-package com.merlin.view.widget;
+package com.merlin.view;
 
 import android.content.Context;
 import android.os.Handler;

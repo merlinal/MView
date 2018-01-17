@@ -15,7 +15,7 @@ import com.merlin.core.util.MLog;
 import com.merlin.core.util.MUtil;
 import com.merlin.core.util.MVerify;
 import com.merlin.view.R;
-import com.merlin.view.SelectModel;
+import com.merlin.view.model.SelectModel;
 import com.merlin.view.widget.PickerView;
 
 import java.util.ArrayList;

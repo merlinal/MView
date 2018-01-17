@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <declare-styleable name="GestureLockView">
+        <attr name="colorInitInner" format="color" />
+        <attr name="colorInitOuter" format="color" />
+        <attr name="colorTouch" format="color" />
+        <attr name="colorSuccess" format="color" />
+        <attr name="colorFailure" format="color" />
+        <attr name="columns" format="integer" />
+        <attr name="maxTime" format="integer" />
+        <attr name="columnWidth" format="dimension" />
+    </declare-styleable>
+
     <declare-styleable name="MBarView">
         <attr name="bgColor" format="color" />
         <attr name="bgColorPopup" format="color" />

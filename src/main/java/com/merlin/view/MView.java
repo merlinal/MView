@@ -9,7 +9,7 @@ import com.merlin.core.context.MContext;
  * @author merlin
  */
 
-public class MWidget {
+public class MView {
 
     public static void toast(String message) {
         Toast toast = Toast.makeText(MContext.app(), message, Toast.LENGTH_SHORT);

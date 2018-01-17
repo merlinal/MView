@@ -1,4 +1,4 @@
-package com.merlin.view;
+package com.merlin.view.model;
 
 import java.util.List;
 

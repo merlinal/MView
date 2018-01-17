@@ -168,7 +168,7 @@ public class MBarView extends RelativeLayout {
         }
         Dialog dialog = dialogs.get(index);
         if (dialog == null) {
-//            dialog = MWidget.showDialog(getContext(), getMenuMoreView(), width, height, x, y, 0, anim, gravity, cancelable);
+//            dialog = MView.showDialog(getContext(), getMenuMoreView(), width, height, x, y, 0, anim, gravity, cancelable);
             dialogs.put(index, dialog);
         } else {
             dialog.show();
