@@ -3,7 +3,9 @@
     <color name="primary">#159C77</color>
     <color name="primary_80">#80159C77</color>
     <color name="primary_a0">#a0159C77</color>
-    <color name="primaryDark">#008B45</color>
+    <color name="primary_ee">#ee159C77</color>
+    <color name="primary_light">#04ac7e</color>
+    <color name="primary_dark">#0f7559</color>
     <color name="accent">#159C77</color>
     <color name="navigationBar">#159C77</color>
     <color name="statusBar">#159C77</color>
@@ -21,7 +23,19 @@
     <color name="black">#000000</color>
     <color name="light">#ffffff</color>
     <color name="dark">#000000</color>
-    <color name="notice">#ff4444</color>
+    <color name="notice">#f44336</color>
     <color name="pressed">#f2f2f2</color>
+
+    <color name="red">#f44336</color>
+    <color name="red_light">#ff392b</color>
+    <color name="red_dark">#d3190b</color>
+    <color name="blue">#2195f3</color>
+    <color name="blue_light">#1596fe</color>
+    <color name="blue_dark">#0a71c4</color>
+    <color name="yellow">#ffc107</color>
+    <color name="yellow_light">#feff00</color>
+    <color name="yellow_dark">#e0b125</color>
+
+
 
 </resources>

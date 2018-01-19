@@ -1,4 +1,4 @@
-package com.merlin.view;
+package com.merlin.view.tool;
 
 import android.databinding.BindingAdapter;
 import android.view.View;

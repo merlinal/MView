@@ -48,6 +48,14 @@ public class Menu extends BaseObservable implements Serializable {
                 0, descColor, descSize, false, null, listener);
     }
 
+    public Menu hide() {
+        text = null;
+        desc = null;
+        iconLeftId = 0;
+        iconRightId = 0;
+        return this;
+    }
+
     public boolean isHide() {
         return MVerify.isBlank(text) && MVerify.isBlank(desc) && iconLeftId == 0 && iconRightId == 0;
     }
