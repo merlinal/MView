@@ -15,7 +15,6 @@ import com.merlin.view.recycler.AbstractRecyclerAdapter;
 import com.merlin.view.recycler.MRecyclerView;
 import com.merlin.view.recycler.RecyclerViewHolder;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -28,21 +27,23 @@ import java.util.Set;
 public class DialogCheck {
 
     private DialogCommon mDialog;
-    private MRecyclerView mRecyclerView;
     private TextView mLeftText;
     private TextView mRightText;
-    private ArrayList<String> mDataList = new ArrayList<>();
     private Set<Integer> mIndexSet = new HashSet<>();
 
-    public static DialogCheck newInstance() {
-        return new DialogCheck();
+    public static <E> DialogCheck newInstance(List<E> list) {
+        return new DialogCheck(list);
     }
 
-    private DialogCheck() {
+    public static <E> DialogCheck newInstance(E... es) {
+        return new DialogCheck(Arrays.asList(es));
+    }
+
+    private <E> DialogCheck(List<E> list) {
         mDialog = new DialogCommon.Builder(MContext.app()).setLayout(R.layout.m_dialog_check)
                 .setWidth(WindowManager.LayoutParams.MATCH_PARENT).bottom().build();
-        mRecyclerView = mDialog.view(R.id.m_dialog_mRecyclerView);
-        mRecyclerView.setAdapter(new AbstractRecyclerAdapter<String>(mDataList) {
+        MRecyclerView mRecyclerView = mDialog.view(R.id.m_dialog_mRecyclerView);
+        mRecyclerView.setAdapter(new AbstractRecyclerAdapter<E>(list) {
 
             @Override
             public int getItemResId(ViewGroup parent, int viewType) {
@@ -50,9 +51,9 @@ public class DialogCheck {
             }
 
             @Override
-            public void onBindViewHolder(RecyclerViewHolder holder, final int position) {
+            public void onBindViewHolder(final RecyclerViewHolder holder, final int position) {
                 TextView itemText = holder.view(R.id.m_dialog_item_text);
-                itemText.setText(getData(position));
+                itemText.setText(getData(position).toString());
                 final CheckBox checkBox = holder.view(R.id.m_dialog_item_box);
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -102,26 +103,8 @@ public class DialogCheck {
         return this;
     }
 
-    public DialogCheck show(FragmentManager fragmentManager, String left, String right,
-                            final IDialog.OnCancelListener onCancelListener,
-                            final IDialog.OnCheckListener onCheckListener,
-                            String... datas) {
+    private DialogCheck setOnCancelListener(final IDialog.OnCancelListener onCancelListener) {
         mDialog.setCancelListener(onCancelListener);
-        if (!mDialog.isShowing()) {
-            mDialog.show(fragmentManager, "DialogRadio");
-        }
-        if (left != null) {
-            mLeftText.setText(left);
-        }
-        if (right != null) {
-            mRightText.setText(right);
-        }
-
-        if (datas != null) {
-            mDataList.addAll(Arrays.asList(datas));
-            mRecyclerView.getAdapter().notifyDataSetChanged();
-        }
-
         mLeftText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -131,6 +114,10 @@ public class DialogCheck {
                 }
             }
         });
+        return this;
+    }
+
+    private DialogCheck setOnRadioListener(final IDialog.OnCheckListener onCheckListener) {
         mRightText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -142,4 +129,22 @@ public class DialogCheck {
         });
         return this;
     }
+
+    private DialogCheck setBtn(String left, String right) {
+        if (left != null) {
+            mLeftText.setText(left);
+        }
+        if (right != null) {
+            mRightText.setText(right);
+        }
+        return this;
+    }
+
+    public DialogCheck show(FragmentManager fragmentManager) {
+        if (!mDialog.isShowing()) {
+            mDialog.show(fragmentManager, "DialogRadio");
+        }
+        return this;
+    }
+
 }

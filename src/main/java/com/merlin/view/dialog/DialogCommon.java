@@ -96,6 +96,10 @@ public class DialogCommon extends DialogFragment {
         return getDialog() != null && getDialog().isShowing();
     }
 
+    public View rootView() {
+        return mBuilder.view;
+    }
+
     public <T> T view(int viewId) {
         return (T) mBuilder.view.findViewById(viewId);
     }
@@ -197,6 +201,11 @@ public class DialogCommon extends DialogFragment {
 
         public Builder setDim(boolean dim) {
             this.dim = dim;
+            return this;
+        }
+
+        public Builder setView(View view) {
+            this.view = view;
             return this;
         }
 

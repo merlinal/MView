@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/m_recycler_item_text"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/size_normal"
+    android:background="?android:attr/selectableItemBackground"
+    android:gravity="center_vertical"
+    android:paddingLeft="@dimen/edge_normal"
+    android:paddingRight="@dimen/edge_normal"
+    android:textColor="@color/label"
+    android:textSize="@dimen/font_normal" />

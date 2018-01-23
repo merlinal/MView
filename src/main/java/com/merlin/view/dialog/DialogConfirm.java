@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.merlin.core.context.MContext;
-import com.merlin.core.util.MUtil;
 import com.merlin.view.R;
 
 /**
@@ -67,36 +66,33 @@ public class DialogConfirm {
         return this;
     }
 
-    public DialogConfirm show(FragmentManager fragmentManager, int titleId, int messageId, int leftId, int rightId,
-                              final IDialog.OnCancelListener onCancelListener,
-                              final IDialog.OnConfirmListener onConfirmListener) {
-        return show(fragmentManager, MUtil.string(titleId), MUtil.string(messageId), MUtil.string(leftId),
-                MUtil.string(rightId), onCancelListener, onConfirmListener);
-    }
-
-
-    public DialogConfirm show(FragmentManager fragmentManager, String title, String message, String left, String right,
-                              final IDialog.OnCancelListener onCancelListener,
-                              final IDialog.OnConfirmListener onConfirmListener) {
-        mDialog.setCancelListener(onCancelListener);
-        if (!mDialog.isShowing()) {
-            mDialog.show(fragmentManager, "DialogConfirm");
-        }
-
+    public DialogConfirm setTitle(String title) {
         if (title != null) {
             mTitleText.setVisibility(View.VISIBLE);
             mTitleText.setText(title);
         } else {
             mTitleText.setVisibility(View.GONE);
         }
+        return this;
+    }
+
+    public DialogConfirm setMessage(String message) {
         mMsgText.setText(message);
+        return this;
+    }
+
+    public DialogConfirm setBtn(String left, String right) {
         if (left != null) {
             mLeftText.setText(left);
         }
         if (right != null) {
             mRightText.setText(right);
         }
+        return this;
+    }
 
+    public DialogConfirm setOnCancelListener(final IDialog.OnCancelListener onCancelListener) {
+        mDialog.setCancelListener(onCancelListener);
         mLeftText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -106,6 +102,10 @@ public class DialogConfirm {
                 }
             }
         });
+        return this;
+    }
+
+    public DialogConfirm setOnConfirmListener(final IDialog.OnConfirmListener onConfirmListener) {
         mRightText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -115,6 +115,14 @@ public class DialogConfirm {
                 }
             }
         });
+        return this;
+    }
+
+    public DialogConfirm show(FragmentManager fragmentManager) {
+
+        if (!mDialog.isShowing()) {
+            mDialog.show(fragmentManager, "DialogConfirm");
+        }
         return this;
     }
 

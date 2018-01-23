@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.merlin.view.recycler.MRecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/m_dialog_mRecyclerView"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:overScrollMode="never"
+    app:dividerColor="@color/divider"
+    app:dividerHeight="@dimen/line_thin"
+    app:maxHeight="280dp"
+    app:mode="list"
+    app:pullLoad="false"
+    app:pullRefresh="false" />

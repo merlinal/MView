@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.merlin.core.context.MContext;
-import com.merlin.core.util.MUtil;
 import com.merlin.view.R;
 
 /**
@@ -60,33 +59,34 @@ public class DialogMessage {
         return this;
     }
 
-    public DialogMessage show(FragmentManager fragmentManager, int titleId, int messageId, int btnId,
-                              final IDialog.OnCancelListener onCancelListener,
-                              final IDialog.OnConfirmListener onConfirmListener) {
-        return show(fragmentManager, MUtil.string(titleId), MUtil.string(messageId), MUtil.string(btnId),
-                onCancelListener, onConfirmListener);
-    }
-
-
-    public DialogMessage show(FragmentManager fragmentManager, String title, String message, String btn,
-                              final IDialog.OnCancelListener onCancelListener,
-                              final IDialog.OnConfirmListener onConfirmListener) {
-        mDialog.setCancelListener(onCancelListener);
-        if (!mDialog.isShowing()) {
-            mDialog.show(fragmentManager, "DialogConfirm");
-        }
-
+    public DialogMessage setTitle(String title) {
         if (title != null) {
             mTitleText.setVisibility(View.VISIBLE);
             mTitleText.setText(title);
         } else {
             mTitleText.setVisibility(View.GONE);
         }
+        return this;
+    }
+
+    public DialogMessage setMessage(String message) {
         mMsgText.setText(message);
+        return this;
+    }
+
+    public DialogMessage setBtn(String btn) {
         if (btn != null) {
             mBtnText.setText(btn);
         }
+        return this;
+    }
 
+    public DialogMessage setOnCancelListener(final IDialog.OnCancelListener onCancelListener) {
+        mDialog.setCancelListener(onCancelListener);
+        return this;
+    }
+
+    public DialogMessage setOnConfirmListener(final IDialog.OnConfirmListener onConfirmListener) {
         mBtnText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -96,6 +96,13 @@ public class DialogMessage {
                 }
             }
         });
+        return this;
+    }
+
+    public DialogMessage show(FragmentManager fragmentManager) {
+        if (!mDialog.isShowing()) {
+            mDialog.show(fragmentManager, "DialogConfirm");
+        }
         return this;
     }
 }

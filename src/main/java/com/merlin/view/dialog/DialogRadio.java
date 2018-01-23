@@ -13,8 +13,8 @@ import com.merlin.view.recycler.AbstractRecyclerAdapter;
 import com.merlin.view.recycler.MRecyclerView;
 import com.merlin.view.recycler.RecyclerViewHolder;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author merlin
@@ -23,20 +23,22 @@ import java.util.Arrays;
 public class DialogRadio {
 
     private DialogCommon mDialog;
-    private MRecyclerView mRecyclerView;
     private TextView mBtnText;
-    private ArrayList<String> mDataList = new ArrayList<>();
     private IDialog.OnRadioListener mOnRadioListener;
 
-    public static DialogRadio newInstance() {
-        return new DialogRadio();
+    public static <T> DialogRadio newInstance(T... ts) {
+        return new DialogRadio(Arrays.asList(ts));
     }
 
-    private DialogRadio() {
+    public static <T> DialogRadio newInstance(List<T> list) {
+        return new DialogRadio(list);
+    }
+
+    private <T> DialogRadio(List<T> list) {
         mDialog = new DialogCommon.Builder(MContext.app()).setLayout(R.layout.m_dialog_radio)
                 .setWidth(WindowManager.LayoutParams.MATCH_PARENT).bottom().build();
-        mRecyclerView = mDialog.view(R.id.m_dialog_mRecyclerView);
-        mRecyclerView.setAdapter(new AbstractRecyclerAdapter<String>(mDataList) {
+        MRecyclerView mRecyclerView = mDialog.view(R.id.m_dialog_mRecyclerView);
+        mRecyclerView.setAdapter(new AbstractRecyclerAdapter<T>(list) {
 
             @Override
             public int getItemResId(ViewGroup parent, int viewType) {
@@ -46,7 +48,7 @@ public class DialogRadio {
             @Override
             public void onBindViewHolder(RecyclerViewHolder holder, final int position) {
                 TextView itemText = holder.view(R.id.m_dialog_item_text);
-                itemText.setText(getData(position));
+                itemText.setText(getData(position).toString());
                 itemText.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -76,24 +78,15 @@ public class DialogRadio {
         return this;
     }
 
-    public DialogRadio show(FragmentManager fragmentManager, String btn,
-                            final IDialog.OnCancelListener onCancelListener,
-                            final IDialog.OnRadioListener onRadioListener,
-                            String... datas) {
-        mDialog.setCancelListener(onCancelListener);
-        if (!mDialog.isShowing()) {
-            mDialog.show(fragmentManager, "DialogRadio");
-        }
-        mOnRadioListener = onRadioListener;
+    private DialogRadio setBtn(String btn) {
         if (btn != null) {
             mBtnText.setText(btn);
         }
+        return this;
+    }
 
-        if (datas != null) {
-            mDataList.addAll(Arrays.asList(datas));
-            mRecyclerView.getAdapter().notifyDataSetChanged();
-        }
-
+    private DialogRadio setOnCancelListener(final IDialog.OnCancelListener onCancelListener) {
+        mDialog.setCancelListener(onCancelListener);
         mBtnText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -105,4 +98,17 @@ public class DialogRadio {
         });
         return this;
     }
+
+    private DialogRadio setOnRadioListener(IDialog.OnRadioListener onRadioListener) {
+        mOnRadioListener = onRadioListener;
+        return this;
+    }
+
+    public DialogRadio show(FragmentManager fragmentManager) {
+        if (!mDialog.isShowing()) {
+            mDialog.show(fragmentManager, "DialogRadio");
+        }
+        return this;
+    }
+
 }
