@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.merlin.view.calendar.model.CalendarDayModel" />
+
+        <variable
+            name="dayClickListener"
+            type="com.merlin.view.calendar.listener.OnDayClickListener" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundImage="@{model.bgResource}"
+        android:gravity="center"
+        android:onClick="@{view -> dayClickListener.onClick(model)}"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{model.solarText}"
+            android:textColor="@{model.solarTextColor}"
+            android:textSize="@{model.solarTextSize}" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{model.lunarText}"
+            android:textColor="@{model.lunarTextColor}"
+            android:textSize="@{model.lunarTextSize}" />
+    </LinearLayout>
+
+</layout>

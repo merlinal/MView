@@ -21,6 +21,11 @@ public class VmHelper {
         }
     }*/
 
+    @BindingAdapter({"android:backgroundImage"})
+    public static void setBackgroundResource(View view, int resId) {
+        view.setBackgroundResource(resId);
+    }
+
     @BindingAdapter("android:src")
     public static void setSrc(ImageView view, int resId) {
         if (resId != 0) {
