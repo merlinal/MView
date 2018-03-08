@@ -34,7 +34,6 @@ public class WeekView extends View {
         this.context = context;
         initAttrs(attrs);
         initPaint();
-        setBackgroundColor(Color.WHITE);
     }
 
     private void initAttrs(AttributeSet attrs) {
@@ -45,7 +44,7 @@ public class WeekView extends View {
             if (attr == R.styleable.WeekView_week_color) {
                 weekColor = ta.getColor(R.styleable.WeekView_week_color, weekColor);
             } else if (attr == R.styleable.WeekView_week_size) {
-                weekSize = ta.getInteger(R.styleable.WeekView_week_size, weekSize);
+                weekSize = ta.getDimensionPixelSize(R.styleable.WeekView_week_size, weekSize);
             } else if (attr == R.styleable.WeekView_week_str) {
                 weekStr = ta.getString(R.styleable.WeekView_week_str);
             }

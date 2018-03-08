@@ -71,11 +71,11 @@
         <!--阳历的日期颜色-->
         <attr name="solar_color" format="color" />
         <!--阳历的日期尺寸-->
-        <attr name="solar_size" format="integer" />
+        <attr name="solar_size" format="dimension" />
         <!--农历的日期颜色-->
         <attr name="lunar_color" format="color" />
         <!--农历的日期尺寸-->
-        <attr name="lunar_size" format="integer" />
+        <attr name="lunar_size" format="dimension" />
         <!--节日文字颜色-->
         <attr name="holiday_color" format="color" />
         <!--选中的日期文字颜色-->
@@ -105,7 +105,7 @@
         <!--周的文字颜色-->
         <attr name="week_color" format="color" />
         <!--周的文字大小-->
-        <attr name="week_size" format="integer" />
+        <attr name="week_size" format="dimension" />
     </declare-styleable>
 
 </resources>

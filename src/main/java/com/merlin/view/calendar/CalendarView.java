@@ -3,12 +3,17 @@ package com.merlin.view.calendar;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 
 import com.merlin.view.calendar.listener.OnMonthChangeListener;
 import com.merlin.view.calendar.model.CalendarAttrsModel;
 import com.merlin.view.calendar.util.CalendarUtil;
 import com.merlin.view.R;
+import com.merlin.view.calendar.util.SolarUtil;
+
+import java.util.Calendar;
+import java.util.Map;
 
 /**
  * @author merlin
@@ -49,11 +54,11 @@ public class CalendarView extends ViewPager {
             } else if (attr == R.styleable.CalendarView_solar_color) {
                 mAttrsModel.setColorSolar(ta.getColor(attr, mAttrsModel.getColorSolar()));
             } else if (attr == R.styleable.CalendarView_solar_size) {
-                mAttrsModel.setSizeSolar(CalendarUtil.getTextSize(context, ta.getInteger(attr, mAttrsModel.getSizeSolar())));
+                mAttrsModel.setSizeSolar(CalendarUtil.getTextSize(context, ta.getDimensionPixelSize(attr, mAttrsModel.getSizeSolar())));
             } else if (attr == R.styleable.CalendarView_lunar_color) {
                 mAttrsModel.setColorLunar(ta.getColor(attr, mAttrsModel.getColorLunar()));
             } else if (attr == R.styleable.CalendarView_lunar_size) {
-                mAttrsModel.setSizeLunar(CalendarUtil.getTextSize(context, ta.getInt(attr, mAttrsModel.getSizeLunar())));
+                mAttrsModel.setSizeLunar(CalendarUtil.getTextSize(context, ta.getDimensionPixelSize(attr, mAttrsModel.getSizeLunar())));
             } else if (attr == R.styleable.CalendarView_holiday_color) {
                 mAttrsModel.setColorSpecify(ta.getColor(attr, mAttrsModel.getColorSpecify()));
             } else if (attr == R.styleable.CalendarView_choose_color) {
@@ -81,6 +86,10 @@ public class CalendarView extends ViewPager {
         if (mAttrsModel.getEndDate() == null) {
             mAttrsModel.setEndDate("2049-12");
         }
+        if (mAttrsModel.getInitDate() == null) {
+            Calendar c = Calendar.getInstance();
+            mAttrsModel.setInitDate(c.get(Calendar.YEAR) + "-" + c.get(Calendar.MONTH));
+        }
     }
 
     public void init() {
@@ -92,6 +101,23 @@ public class CalendarView extends ViewPager {
             }
         });
         setCurrentItem(mAttrsModel.getInitPosition(), true);
+    }
+
+    /**
+     * @param startDate yyyy-MM
+     * @param endDate   yyyy-MM
+     * @param initDate  yyyy-MM
+     */
+    public void set(String startDate, String endDate, String initDate) {
+        if (!TextUtils.isEmpty(startDate)) {
+            mAttrsModel.setStartDate(startDate);
+        }
+        if (!TextUtils.isEmpty(endDate)) {
+            mAttrsModel.setEndDate(endDate);
+        }
+        if (!TextUtils.isEmpty(initDate)) {
+            mAttrsModel.setInitDate(initDate);
+        }
     }
 
     /**
@@ -168,6 +194,14 @@ public class CalendarView extends ViewPager {
      */
     public void addSpecify(String date, String text) {
         mAttrsModel.getSpecifyMap().put(date, text);
+    }
+
+    public void addSpecify(Map<String, String> map) {
+        mAttrsModel.getSpecifyMap().putAll(map);
+    }
+
+    public void addSpecify(int year, int month, int day, String text) {
+        mAttrsModel.getSpecifyMap().put(SolarUtil.getFormatDate(year, month, day), text);
     }
 
     /**
