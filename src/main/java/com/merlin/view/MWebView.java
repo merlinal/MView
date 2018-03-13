@@ -1,4 +1,4 @@
-package com.merlin.view.webview;
+package com.merlin.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
