@@ -4,7 +4,9 @@ package com.merlin.view.calendar;
 import android.text.TextUtils;
 
 import com.merlin.view.calendar.listener.OnDayClickListener;
+import com.merlin.view.calendar.listener.OnDayLongClickListener;
 import com.merlin.view.calendar.listener.OnMonthChangeListener;
+import com.merlin.view.calendar.listener.OnSelectedListener;
 import com.merlin.view.calendar.model.CalendarAttrsModel;
 import com.merlin.view.calendar.model.CalendarDayModel;
 import com.merlin.view.calendar.util.CalendarUtil;
@@ -15,11 +17,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 
 /**
- * Created by Administrator on 2018/3/5.
+ * @author merlin
  */
 
 public class CalendarHelper {
@@ -28,13 +31,16 @@ public class CalendarHelper {
     private Map<String, List<CalendarDayModel>> monthMap = new HashMap<>();
     private int[] currentDate;
     private int currentPosition;
-    private HashSet<CalendarDayModel> selectSet = new HashSet<>();
+    private HashSet<CalendarDayModel> selectSet = new LinkedHashSet<>();
 
     private CalendarDayModel todayModel;
 
     private OnMonthChangeListener monthChangeListener;
     private boolean isFirstClick = true;
     private CalendarDayModel selectStartModel;
+
+    private OnDayLongClickListener onDayLongClickListener;
+    private OnSelectedListener onSelectedListener;
 
     private OnDayClickListener dayClickListener = new OnDayClickListener() {
         @Override
@@ -81,6 +87,9 @@ public class CalendarHelper {
                     break;
                 default:
                     break;
+            }
+            if (onSelectedListener != null) {
+                onSelectedListener.onSelected(new ArrayList<>(selectSet));
             }
         }
     };
@@ -380,4 +389,15 @@ public class CalendarHelper {
         return dayClickListener;
     }
 
+    public void setOnDayLongClickListener(OnDayLongClickListener onDayLongClickListener) {
+        this.onDayLongClickListener = onDayLongClickListener;
+    }
+
+    public OnDayLongClickListener getOnDayLongClickListener() {
+        return onDayLongClickListener;
+    }
+
+    public void setOnSelectedListener(OnSelectedListener onSelectedListener) {
+        this.onSelectedListener = onSelectedListener;
+    }
 }

@@ -6,12 +6,11 @@ import com.merlin.view.calendar.model.CalendarDayModel;
  * @author merlin
  */
 
-public interface OnDayClickListener {
+public interface OnDayLongClickListener {
     /**
-     * 点击事件
+     * 长按事件
      *
      * @param dayModel CalendarDayModel
      */
     void onClick(CalendarDayModel dayModel);
-
 }

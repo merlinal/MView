@@ -68,6 +68,7 @@ public class MonthView extends ViewGroup {
             MCalendarMonthBinding binding = DataBindingUtil.inflate(LayoutInflater.from(mContext), R.layout.m_calendar_month, null, false);
             binding.setModel(dayModel);
             binding.setDayClickListener(mHelper.getDayClickListener());
+            binding.setDayLongClickListener(mHelper.getOnDayLongClickListener());
 
             addView(binding.getRoot(), i);
         }

@@ -6,7 +6,9 @@ import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 
+import com.merlin.view.calendar.listener.OnDayLongClickListener;
 import com.merlin.view.calendar.listener.OnMonthChangeListener;
+import com.merlin.view.calendar.listener.OnSelectedListener;
 import com.merlin.view.calendar.model.CalendarAttrsModel;
 import com.merlin.view.calendar.util.CalendarUtil;
 import com.merlin.view.R;
@@ -88,7 +90,7 @@ public class CalendarView extends ViewPager {
         }
         if (mAttrsModel.getInitDate() == null) {
             Calendar c = Calendar.getInstance();
-            mAttrsModel.setInitDate(c.get(Calendar.YEAR) + "-" + c.get(Calendar.MONTH));
+            mAttrsModel.setInitDate(c.get(Calendar.YEAR) + "-" + (c.get(Calendar.MONTH) + 1));
         }
     }
 
@@ -123,8 +125,8 @@ public class CalendarView extends ViewPager {
     /**
      * 计算 ViewPager 高度
      *
-     * @param widthMeasureSpec
-     * @param heightMeasureSpec
+     * @param widthMeasureSpec  widthMeasureSpec
+     * @param heightMeasureSpec heightMeasureSpec
      */
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -142,6 +144,14 @@ public class CalendarView extends ViewPager {
 
     public void setMonthChangeListener(OnMonthChangeListener monthChangeListener) {
         mHelper.setMonthChangeListener(monthChangeListener);
+    }
+
+    public void setDayLongClickListener(OnDayLongClickListener dayLongClickListener) {
+        mHelper.setOnDayLongClickListener(dayLongClickListener);
+    }
+
+    public void setSelectedListener(OnSelectedListener selectedListener) {
+        mHelper.setOnSelectedListener(selectedListener);
     }
 
     /**

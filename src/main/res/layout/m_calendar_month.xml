@@ -11,6 +11,10 @@
         <variable
             name="dayClickListener"
             type="com.merlin.view.calendar.listener.OnDayClickListener" />
+
+        <variable
+            name="dayLongClickListener"
+            type="com.merlin.view.calendar.listener.OnDayLongClickListener" />
     </data>
 
     <LinearLayout
@@ -19,6 +23,7 @@
         android:backgroundImage="@{model.bgResource}"
         android:gravity="center"
         android:onClick="@{view -> dayClickListener.onClick(model)}"
+        android:onLongClick="@{view -> dayLongClickListener.onClick(model)}"
         android:orientation="vertical">
 
         <TextView
