@@ -11,6 +11,7 @@ public interface OnDayLongClickListener {
      * 长按事件
      *
      * @param dayModel CalendarDayModel
+     * @return boolean
      */
-    void onClick(CalendarDayModel dayModel);
+    boolean onClick(CalendarDayModel dayModel);
 }
