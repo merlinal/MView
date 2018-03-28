@@ -6,14 +6,16 @@ import android.support.v4.app.FragmentManager;
 import android.util.SparseArray;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.merlin.core.context.MContext;
 import com.merlin.core.util.MDate;
 import com.merlin.core.util.MLog;
-import com.merlin.core.util.MUtil;
 import com.merlin.core.util.MVerify;
 import com.merlin.view.R;
+import com.merlin.view.dialog.base.DialogCommon;
+import com.merlin.view.dialog.base.IDialog;
 import com.merlin.view.widget.PickerView;
 
 import java.util.ArrayList;
@@ -58,6 +60,7 @@ public class DialogDatePicker {
     private DialogDatePicker() {
         mDialog = new DialogCommon.Builder(MContext.app())
                 .setLayout(R.layout.m_dialog_date_picker)
+                .setWidth(WindowManager.LayoutParams.MATCH_PARENT)
                 .bottom()
                 .build();
         //view

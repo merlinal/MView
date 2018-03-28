@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.merlin.view.recycler.MRecyclerView
+        android:id="@+id/m_dialog_mRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@drawable/m_bg_white_radius"
+        android:overScrollMode="never"
+        android:paddingLeft="@dimen/edge_normal"
+        android:paddingRight="@dimen/edge_normal"
+        android:scrollbars="none"
+        app:dividerColor="@color/divider"
+        app:dividerHeight="@dimen/line_thin"
+        app:loadFooter="blank"
+        app:mode="list"
+        app:pullLoad="false"
+        app:pullRefresh="false"
+        app:refreshHeader="blank" />
+
+    <View
+        android:id="@+id/m_dialog_line"
+        android:layout_width="1dp"
+        android:layout_height="@dimen/size_small"
+        android:layout_gravity="center"
+        android:background="@color/white" />
+
+    <TextView
+        android:id="@+id/m_dialog_btn"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/edge_normal"
+        android:background="@drawable/m_btn_dialog_close"
+        android:gravity="center"
+        android:text="@string/btn_close"
+        android:textColor="@color/text_desc"
+        android:textSize="@dimen/font_normal" />
+
+</LinearLayout>

@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import com.merlin.core.context.MContext;
 import com.merlin.view.R;
+import com.merlin.view.dialog.base.DialogCommon;
+import com.merlin.view.dialog.base.IDialog;
 import com.merlin.view.recycler.AbstractRecyclerAdapter;
 import com.merlin.view.recycler.MRecyclerView;
 import com.merlin.view.recycler.RecyclerViewHolder;
@@ -24,6 +26,7 @@ public class DialogRadio {
 
     private DialogCommon mDialog;
     private TextView mBtnText;
+    private IDialog.OnCancelListener mOnCancelListener;
     private IDialog.OnRadioListener mOnRadioListener;
 
     public static <T> DialogRadio newInstance(T... ts) {
@@ -61,6 +64,16 @@ public class DialogRadio {
             }
         });
         mBtnText = mDialog.view(R.id.m_dialog_btn);
+
+        mBtnText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mDialog.dismiss();
+                if (mOnCancelListener != null) {
+                    mOnCancelListener.onCancel();
+                }
+            }
+        });
     }
 
     public DialogRadio setBtnText(int textColor, float textSize) {
@@ -78,28 +91,20 @@ public class DialogRadio {
         return this;
     }
 
-    private DialogRadio setBtn(String btn) {
+    public DialogRadio setBtn(String btn) {
         if (btn != null) {
             mBtnText.setText(btn);
         }
         return this;
     }
 
-    private DialogRadio setOnCancelListener(final IDialog.OnCancelListener onCancelListener) {
+    public DialogRadio setOnCancelListener(final IDialog.OnCancelListener onCancelListener) {
         mDialog.setCancelListener(onCancelListener);
-        mBtnText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mDialog.dismiss();
-                if (onCancelListener != null) {
-                    onCancelListener.onCancel();
-                }
-            }
-        });
+        this.mOnCancelListener = onCancelListener;
         return this;
     }
 
-    private DialogRadio setOnRadioListener(IDialog.OnRadioListener onRadioListener) {
+    public DialogRadio setOnRadioListener(IDialog.OnRadioListener onRadioListener) {
         mOnRadioListener = onRadioListener;
         return this;
     }

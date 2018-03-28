@@ -2,15 +2,19 @@ package com.merlin.view.dialog;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.annotation.SuppressLint;
 import android.graphics.Rect;
 import android.support.v4.app.FragmentManager;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.merlin.core.context.MContext;
 import com.merlin.view.R;
+import com.merlin.view.dialog.base.DialogCommon;
+import com.merlin.view.dialog.base.IDialog;
 import com.merlin.view.recycler.AbstractRecyclerAdapter;
 import com.merlin.view.recycler.MRecyclerView;
 import com.merlin.view.recycler.RecyclerViewHolder;
@@ -52,6 +56,7 @@ public class DialogSpinner {
         parentView.getWindowVisibleDisplayFrame(rectRoot);
 
         mDialog = new DialogCommon.Builder(MContext.app())
+                .setWidth(parentView.getWidth())
                 .setLayout(R.layout.m_dialog_spinner)
                 .setDim(false)
                 .setGravity(Gravity.LEFT | Gravity.TOP)
@@ -60,7 +65,6 @@ public class DialogSpinner {
                 .build();
 
         MRecyclerView mRecyclerView = mDialog.view(R.id.m_dialog_mRecyclerView);
-        mRecyclerView.setMinimumWidth(parentView.getWidth());
         mRecyclerView.setAdapter(new AbstractRecyclerAdapter<T>(list) {
 
             @Override
@@ -69,7 +73,7 @@ public class DialogSpinner {
             }
 
             @Override
-            public void onBindViewHolder(final RecyclerViewHolder holder, final int position) {
+            public void onBindViewHolder(final RecyclerViewHolder holder, @SuppressLint("RecyclerView") final int position) {
                 TextView itemText = holder.view(itemTextId);
                 itemText.setText(getData(position).toString());
                 itemText.setOnClickListener(new View.OnClickListener() {

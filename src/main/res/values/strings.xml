@@ -3,6 +3,7 @@
 
     <string name="btn_cancel">取消</string>
     <string name="btn_confirm">确定</string>
+    <string name="btn_close">关闭</string>
 
     <string name="date_year">年</string>
     <string name="date_month">月</string>

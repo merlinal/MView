@@ -1,4 +1,4 @@
-package com.merlin.view.dialog;
+package com.merlin.view.dialog.base;
 
 import android.content.Context;
 import android.content.DialogInterface;

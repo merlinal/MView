@@ -30,7 +30,7 @@ public class CalendarHelper {
     private CalendarAttrsModel attrsModel;
     private Map<String, List<CalendarDayModel>> monthMap = new HashMap<>();
     private int[] currentDate;
-    private int currentPosition;
+    private int currentPosition = -1;
     private HashSet<CalendarDayModel> selectSet = new LinkedHashSet<>();
 
     private CalendarDayModel todayModel;
@@ -360,6 +360,9 @@ public class CalendarHelper {
     }
 
     public int getCurrentPosition() {
+        if (currentPosition < 0) {
+            currentPosition = attrsModel.getInitPosition();
+        }
         return currentPosition;
     }
 
@@ -400,4 +403,9 @@ public class CalendarHelper {
     public void setOnSelectedListener(OnSelectedListener onSelectedListener) {
         this.onSelectedListener = onSelectedListener;
     }
+
+    public void refresh() {
+        monthMap.clear();
+    }
+
 }

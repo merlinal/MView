@@ -7,6 +7,8 @@ import android.widget.TextView;
 
 import com.merlin.core.context.MContext;
 import com.merlin.view.R;
+import com.merlin.view.dialog.base.DialogCommon;
+import com.merlin.view.dialog.base.IDialog;
 
 /**
  * @author merlin
@@ -18,6 +20,8 @@ public class DialogMessage {
     private TextView mTitleText;
     private TextView mMsgText;
     private TextView mBtnText;
+
+    private IDialog.OnConfirmListener onConfirmListener;
 
     public static DialogMessage newInstance() {
         return new DialogMessage();
@@ -32,6 +36,16 @@ public class DialogMessage {
         mTitleText = mDialog.view(R.id.m_dialog_title);
         mMsgText = mDialog.view(R.id.m_dialog_message);
         mBtnText = mDialog.view(R.id.m_dialog_btn);
+
+        mBtnText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mDialog.dismiss();
+                if (onConfirmListener != null) {
+                    onConfirmListener.onConfirm();
+                }
+            }
+        });
     }
 
     public DialogMessage setTitleText(int textColor, float textSize) {
@@ -87,15 +101,7 @@ public class DialogMessage {
     }
 
     public DialogMessage setOnConfirmListener(final IDialog.OnConfirmListener onConfirmListener) {
-        mBtnText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mDialog.dismiss();
-                if (onConfirmListener != null) {
-                    onConfirmListener.onConfirm();
-                }
-            }
-        });
+        this.onConfirmListener = onConfirmListener;
         return this;
     }
 

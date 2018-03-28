@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.merlin.core.context.MContext;
 import com.merlin.view.R;
+import com.merlin.view.dialog.base.DialogCommon;
+import com.merlin.view.dialog.base.IDialog;
 import com.merlin.view.recycler.AbstractRecyclerAdapter;
 import com.merlin.view.recycler.MRecyclerView;
 import com.merlin.view.recycler.RecyclerViewHolder;
@@ -29,6 +31,10 @@ public class DialogCheck {
     private DialogCommon mDialog;
     private TextView mLeftText;
     private TextView mRightText;
+
+    private IDialog.OnCancelListener onCancelListener;
+    private IDialog.OnCheckListener onCheckListener;
+
     private Set<Integer> mIndexSet = new HashSet<>();
 
     public static <E> DialogCheck newInstance(List<E> list) {
@@ -81,6 +87,25 @@ public class DialogCheck {
         });
         mLeftText = mDialog.view(R.id.m_dialog_left);
         mRightText = mDialog.view(R.id.m_dialog_right);
+
+        mLeftText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mDialog.dismiss();
+                if (onCancelListener != null) {
+                    onCancelListener.onCancel();
+                }
+            }
+        });
+        mRightText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDialog.dismiss();
+                if (onCheckListener != null) {
+                    onCheckListener.onSelect(mIndexSet);
+                }
+            }
+        });
     }
 
     public DialogCheck setLeftText(int textColor, float textSize) {
@@ -103,34 +128,18 @@ public class DialogCheck {
         return this;
     }
 
-    private DialogCheck setOnCancelListener(final IDialog.OnCancelListener onCancelListener) {
+    public DialogCheck setOnCancelListener(final IDialog.OnCancelListener onCancelListener) {
         mDialog.setCancelListener(onCancelListener);
-        mLeftText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mDialog.dismiss();
-                if (onCancelListener != null) {
-                    onCancelListener.onCancel();
-                }
-            }
-        });
+        this.onCancelListener = onCancelListener;
         return this;
     }
 
-    private DialogCheck setOnRadioListener(final IDialog.OnCheckListener onCheckListener) {
-        mRightText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mDialog.dismiss();
-                if (onCheckListener != null) {
-                    onCheckListener.onSelect(mIndexSet);
-                }
-            }
-        });
+    public DialogCheck setOnRadioListener(final IDialog.OnCheckListener onCheckListener) {
+        this.onCheckListener = onCheckListener;
         return this;
     }
 
-    private DialogCheck setBtn(String left, String right) {
+    public DialogCheck setBtn(String left, String right) {
         if (left != null) {
             mLeftText.setText(left);
         }

@@ -1,4 +1,4 @@
-package com.merlin.view.dialog;
+package com.merlin.view.dialog.base;
 
 import java.util.Set;
 

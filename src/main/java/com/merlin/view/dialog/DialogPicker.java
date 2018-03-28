@@ -7,6 +7,7 @@ import android.util.SparseArray;
 import android.util.SparseIntArray;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -15,6 +16,8 @@ import com.merlin.core.util.MLog;
 import com.merlin.core.util.MUtil;
 import com.merlin.core.util.MVerify;
 import com.merlin.view.R;
+import com.merlin.view.dialog.base.DialogCommon;
+import com.merlin.view.dialog.base.IDialog;
 import com.merlin.view.model.SelectModel;
 import com.merlin.view.widget.PickerView;
 
@@ -76,6 +79,7 @@ public class DialogPicker {
 
     private DialogPicker(boolean isLinked) {
         mDialog = new DialogCommon.Builder(MContext.app())
+                .setWidth(WindowManager.LayoutParams.MATCH_PARENT)
                 .setLayout(R.layout.m_dialog_picker)
                 .bottom()
                 .build();

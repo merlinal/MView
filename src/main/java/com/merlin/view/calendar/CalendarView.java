@@ -94,7 +94,8 @@ public class CalendarView extends ViewPager {
         }
     }
 
-    public void init() {
+    private void init() {
+        mHelper.refresh();
         setAdapter(new CalendarPagerAdapter(mHelper));
         addOnPageChangeListener(new SimpleOnPageChangeListener() {
             @Override
@@ -102,7 +103,7 @@ public class CalendarView extends ViewPager {
                 mHelper.setCurrentPosition(position);
             }
         });
-        setCurrentItem(mAttrsModel.getInitPosition(), true);
+        setCurrentItem(mHelper.getCurrentPosition(), true);
     }
 
     /**
@@ -212,6 +213,7 @@ public class CalendarView extends ViewPager {
 
     public void addSpecify(int year, int month, int day, String text) {
         mAttrsModel.getSpecifyMap().put(SolarUtil.getFormatDate(year, month, day), text);
+        init();
     }
 
     /**
