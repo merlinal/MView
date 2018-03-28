@@ -106,6 +106,10 @@ public class CalendarView extends ViewPager {
         setCurrentItem(mHelper.getCurrentPosition(), true);
     }
 
+    public void notifyDataChanged() {
+        init();
+    }
+
     /**
      * @param startDate yyyy-MM
      * @param endDate   yyyy-MM
