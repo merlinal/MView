@@ -37,6 +37,7 @@ public class CalendarView extends ViewPager {
         mHelper.setAttrsModel(mAttrsModel);
         initAttr(context, attrs);
         init();
+        mHelper.init();
     }
 
     private void initAttr(Context context, AttributeSet attrs) {

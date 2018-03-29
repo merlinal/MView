@@ -42,6 +42,13 @@ public class CalendarHelper {
     private OnDayLongClickListener onDayLongClickListener;
     private OnSelectedListener onSelectedListener;
 
+    public void init() {
+        selectSet.add(todayModel);
+        if (onSelectedListener != null) {
+            onSelectedListener.onSelected(new ArrayList<>(selectSet));
+        }
+    }
+
     private OnDayClickListener dayClickListener = new OnDayClickListener() {
         @Override
         public void onClick(CalendarDayModel dayModel) {
@@ -404,8 +411,15 @@ public class CalendarHelper {
         this.onSelectedListener = onSelectedListener;
     }
 
+    public OnSelectedListener getOnSelectedListener() {
+        return onSelectedListener;
+    }
+
     public void refresh() {
         monthMap.clear();
     }
 
+    public CalendarDayModel getTodayModel() {
+        return todayModel;
+    }
 }
