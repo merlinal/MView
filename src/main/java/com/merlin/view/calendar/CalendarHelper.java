@@ -36,32 +36,21 @@ public class CalendarHelper {
     private CalendarDayModel todayModel;
 
     private OnMonthChangeListener monthChangeListener;
-    private boolean isFirstClick = true;
     private CalendarDayModel selectStartModel;
 
     private OnDayLongClickListener onDayLongClickListener;
     private OnSelectedListener onSelectedListener;
 
-    public void init() {
-        selectSet.add(todayModel);
-        if (onSelectedListener != null) {
-            onSelectedListener.onSelected(new ArrayList<>(selectSet));
-        }
-    }
-
     private OnDayClickListener dayClickListener = new OnDayClickListener() {
         @Override
         public void onClick(CalendarDayModel dayModel) {
-            //首次点击，去掉今天的选中状态
-            if (isFirstClick && attrsModel.getChooseType() != CalendarAttrsModel.TYPE_CHOOSE_NONE) {
-                selectSet.add(todayModel);
-                setSelectStatus(todayModel, false);
-                selectSet.clear();
-                isFirstClick = false;
-            }
             //是否是反选
             boolean isInverse = false;
             switch (attrsModel.getChooseType()) {
+                case CalendarAttrsModel.TYPE_CHOOSE_NONE:
+                    selectSet.clear();
+                    selectSet.add(dayModel);
+                    break;
                 case CalendarAttrsModel.TYPE_CHOOSE_SINGLE:
                     for (CalendarDayModel temp : selectSet) {
                         setSelectStatus(temp, false);
@@ -242,15 +231,25 @@ public class CalendarHelper {
         //星期几
         dayModel.setWeek(SolarUtil.getWeek(year, month - 1, day));
         //是否是今天
-        if (SolarUtil.isToday(year, month, day)) {
-            dayModel.setToday(true);
+        boolean isTodaySelect = false;
+        if (todayModel == null && SolarUtil.isToday(year, month, day)) {
             todayModel = dayModel;
+            dayModel.setToday(true);
+            //单选或不选状态下默认标出今天
+            if (attrsModel.getChooseType() == CalendarAttrsModel.TYPE_CHOOSE_SINGLE
+                    || attrsModel.getChooseType() == CalendarAttrsModel.TYPE_CHOOSE_NONE) {
+                selectSet.add(todayModel);
+                isTodaySelect = true;
+                if (onSelectedListener != null) {
+                    onSelectedListener.onSelected(new ArrayList<>(selectSet));
+                }
+            }
         }
         //文字大小
         dayModel.setSolarTextSize(attrsModel.getSizeSolar());
         dayModel.setLunarTextSize(attrsModel.getSizeLunar());
         //文字颜色设置
-        setSelectStatus(dayModel, false);
+        setSelectStatus(dayModel, isTodaySelect);
         return dayModel;
     }
 
@@ -270,38 +269,26 @@ public class CalendarHelper {
      * @param isSelected 是否选中
      */
     private void setSelectStatus(CalendarDayModel dayModel, boolean isSelected) {
-        switch (dayModel.getType()) {
-            case CalendarDayModel.TYPE_LAST_MONTH:
-            case CalendarDayModel.TYPE_NEXT_MONTH:
-                if (isSelected) {
-                    dayModel.setSolarTextColor(attrsModel.getChooseColor());
-                    dayModel.setLunarTextColor(attrsModel.getChooseColor());
-                    dayModel.setBgResource(attrsModel.getChooseBg());
-                } else {
+        if (isSelected) {
+            dayModel.setSolarTextColor(attrsModel.getChooseColor());
+            dayModel.setLunarTextColor(attrsModel.getChooseColor());
+            dayModel.setBgResource(attrsModel.getChooseBg());
+        } else {
+            switch (dayModel.getType()) {
+                case CalendarDayModel.TYPE_LAST_MONTH:
+                case CalendarDayModel.TYPE_NEXT_MONTH:
                     dayModel.setSolarTextColor(attrsModel.getColorLastOrNext());
                     dayModel.setLunarTextColor(attrsModel.getColorLastOrNext());
                     dayModel.setBgResource(0);
-                }
-                break;
-            case CalendarDayModel.TYPE_THIS_MONTH:
-                if (isSelected) {
-                    dayModel.setSolarTextColor(attrsModel.getChooseColor());
-                    dayModel.setLunarTextColor(attrsModel.getChooseColor());
-                    dayModel.setBgResource(attrsModel.getChooseBg());
-                } else {
-                    if (dayModel.isToday() && selectSet.isEmpty()) {
-                        dayModel.setSolarTextColor(attrsModel.getChooseColor());
-                        dayModel.setLunarTextColor(attrsModel.getChooseColor());
-                        dayModel.setBgResource(attrsModel.getChooseBg());
-                    } else {
-                        dayModel.setSolarTextColor(dayModel.isWeekend() ? attrsModel.getColorWeekend() : attrsModel.getColorSolar());
-                        dayModel.setLunarTextColor(dayModel.isSpecify() ? attrsModel.getColorSpecify() : attrsModel.getColorLunar());
-                        dayModel.setBgResource(0);
-                    }
-                }
-                break;
-            default:
-                break;
+                    break;
+                case CalendarDayModel.TYPE_THIS_MONTH:
+                    dayModel.setSolarTextColor(dayModel.isWeekend() ? attrsModel.getColorWeekend() : attrsModel.getColorSolar());
+                    dayModel.setLunarTextColor(dayModel.isSpecify() ? attrsModel.getColorSpecify() : attrsModel.getColorLunar());
+                    dayModel.setBgResource(0);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
